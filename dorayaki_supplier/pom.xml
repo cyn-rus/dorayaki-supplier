@@ -92,7 +92,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>mahi_mahi.App</mainClass>
+              <mainClass>mahi_mahi.SOAPPublisher</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -102,7 +102,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>mahi_mahi.App</mainClass>
+                <mainClass>mahi_mahi.SOAPPublisher</mainClass>
               </manifest>
             </archive>
             <descriptorRefs>
