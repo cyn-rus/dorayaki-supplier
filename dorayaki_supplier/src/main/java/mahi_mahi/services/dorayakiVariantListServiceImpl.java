@@ -68,7 +68,7 @@ public class dorayakiVariantListServiceImpl implements dorayakiVariantListServic
     }
 
     @Override
-    public void getVariantList() {
+    public String getVariantList() {
         try {
             URL urlForGetRequest = new URL("http://localhost:8005/getResepNames");
             String readLine = null;
@@ -85,13 +85,17 @@ public class dorayakiVariantListServiceImpl implements dorayakiVariantListServic
                 in.close();
 
                 System.out.println(response.toString());
+                return response.toString();
             } else {
                 System.out.println("Unable to make GET request");
+                return "Unable to make GET request";
             }
         } catch (MalformedURLException err) {
             System.out.println(err);
+            return err.toString();
         } catch (IOException err) {
             System.out.println(err);
+            return err.toString();
         }
     }
 

@@ -7,6 +7,8 @@ import java.net.*;
 // import java.util.*;
 import org.json.*;
 
+import javax.jws.WebParam;
+
 @WebService(endpointInterface = "mahi_mahi.services.dorayakiAddStockService")
 public class dorayakiAddStockServiceImpl implements dorayakiAddStockService {
     @Override
@@ -18,7 +20,10 @@ public class dorayakiAddStockServiceImpl implements dorayakiAddStockService {
     // @Override
     // public void getRequestLog() {
     @Override
-    public void addRequest() {
+    public int addRequest(@WebParam(name = "request_name") String request_name,
+            @WebParam(name = "nama_dorayaki") String nama_dorayaki, @WebParam(name = "jumlah") int jumlah,
+            @WebParam(name = "ip") String ip, @WebParam(name = "endpoint") String endpoint,
+            @WebParam(name = "timestamp") String timestamp) {
         System.out.println("test");
 
         // commonj.sdo.DataObject smo = (commonj.sdo.DataObject)aEObject;
@@ -41,13 +46,13 @@ public class dorayakiAddStockServiceImpl implements dorayakiAddStockService {
             postConnection.setRequestMethod("POST");
 
             JSONObject body = new JSONObject();
-            body.put("request_name", "a1bcdefgh");
-            body.put("nama_dorayaki", "a1bcdefgh");
-            body.put("jumlah", "20");
-            body.put("status", "320");
-            body.put("ip", "0.0.0.0");
-            body.put("endpoint", "test");
-            body.put("timestamp", "2008-01-01 00:00:01");
+            body.put("request_name", request_name);
+            body.put("nama_dorayaki", nama_dorayaki);
+            body.put("jumlah", jumlah);
+            body.put("status", 320);
+            body.put("ip", ip);
+            body.put("endpoint", endpoint);
+            body.put("timestamp", timestamp);
 
             OutputStream os = postConnection.getOutputStream();
             OutputStreamWriter osw = new OutputStreamWriter(os);
@@ -72,11 +77,14 @@ public class dorayakiAddStockServiceImpl implements dorayakiAddStockService {
 
                 // print result
                 System.out.println(response.toString());
+                return 1;
             } else {
                 System.out.println("POST NOT WORKED");
+                return 0;
             }
         } catch (Exception err) {
             System.out.println(err);
+            return 0;
         }
     }
 }

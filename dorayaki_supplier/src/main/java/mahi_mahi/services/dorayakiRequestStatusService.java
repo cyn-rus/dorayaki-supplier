@@ -25,6 +25,6 @@ public interface dorayakiRequestStatusService {
     public String testPrint();
 
     @WebMethod
-    public void getRequestStatus(@WebParam(name = "test") String request_name);
+    public String getRequestStatus(@WebParam(name = "test") String request_name);
 
 }

@@ -17,7 +17,7 @@ public class dorayakiRequestStatusServiceImpl implements dorayakiRequestStatusSe
     }
 
     @Override
-    public void getRequestStatus(@WebParam(name = "request_name") String request_name) {
+    public String getRequestStatus(@WebParam(name = "request_name") String request_name) {
         try {
             URL urlForGetRequest = new URL("http://localhost:8005/getStatus");
             String readLine = null;
@@ -34,13 +34,17 @@ public class dorayakiRequestStatusServiceImpl implements dorayakiRequestStatusSe
                 in.close();
 
                 System.out.println(response.toString());
+                return response.toString();
             } else {
                 System.out.println("Unable to make GET request");
+                return "Unable to make GET request";
             }
         } catch (MalformedURLException err) {
             System.out.println(err);
+            return (err.toString());
         } catch (IOException err) {
             System.out.println(err);
+            return (err.toString());
         }
     }
 }

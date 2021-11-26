@@ -29,5 +29,5 @@ public interface dorayakiVariantListService {
     public String testPrint();
 
     @WebMethod
-    public void getVariantList();
+    public String getVariantList();
 }
