@@ -3,8 +3,8 @@ package mahi_mahi.services;
 import javax.jws.WebService;
 import java.io.*;
 import java.net.*;
-import org.apache.http.entity.StringEntity;
-import java.util.*;
+// import org.apache.http.entity.StringEntity;
+// import java.util.*;
 import org.json.*;
 
 @WebService(endpointInterface = "mahi_mahi.services.dorayakiAddStockService")

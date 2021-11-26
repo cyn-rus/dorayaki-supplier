@@ -1,10 +1,11 @@
 package mahi_mahi.services;
 
 import javax.jws.WebService;
+import javax.jws.WebParam;
 
 import java.io.*;
 import java.net.*;
-import org.json.*;
+// import org.json.*;
 
 @WebService(endpointInterface = "mahi_mahi.services.dorayakiRequestStatusService")
 
@@ -16,32 +17,15 @@ public class dorayakiRequestStatusServiceImpl implements dorayakiRequestStatusSe
     }
 
     @Override
-    public void getRequestStatus() {
+    public void getRequestStatus(@WebParam(name = "request_name") String request_name) {
         try {
             URL urlForGetRequest = new URL("http://localhost:8005/getStatus");
             String readLine = null;
             HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            connection.setRequestProperty("Accept", "application/json");
-
-            JSONObject body = new JSONObject();
-            body.put("request_name", "test");
-
-            OutputStream os = connection.getOutputStream();
-            OutputStreamWriter osw = new OutputStreamWriter(os);
-            osw.write(body.toString());
-            osw.flush();
-
-            os.close();
-
+            connection.setRequestMethod("GET");
             int responseCode = connection.getResponseCode();
-            System.out.println("POST Response Code : " + responseCode);
-            System.out.println("POST Response Message : " + connection.getResponseMessage());
 
-            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuffer response = new StringBuffer();
                 while ((readLine = in.readLine()) != null) {
@@ -53,7 +37,9 @@ public class dorayakiRequestStatusServiceImpl implements dorayakiRequestStatusSe
             } else {
                 System.out.println("Unable to make GET request");
             }
-        } catch (Exception err) {
+        } catch (MalformedURLException err) {
+            System.out.println(err);
+        } catch (IOException err) {
             System.out.println(err);
         }
     }
